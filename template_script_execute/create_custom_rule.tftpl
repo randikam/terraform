@@ -1,0 +1,17 @@
+resource "null_resource" "create_custom_rule" {
+  provisioner "local-exec" {
+    command = <<EOT
+    sudo sh -c "cat >/home/ec2-user/terr_test2/custom_rule.json <<EOL
+    {
+      \"allowed-log-paths-configuration\": [
+        {
+          \"directory-pattern\": \"^/usr/share/tomcat/logs/\",
+          \"file-pattern\": \"*\",
+          \"action\": \"INCLUDE\"
+        }
+      ]
+    }
+    EOL"
+    EOT
+  }
+}
